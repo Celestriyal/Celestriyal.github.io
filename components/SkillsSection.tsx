@@ -1,57 +1,46 @@
 import SectionContainer from './SectionContainer';
-import SpotlightCard from './SpotlightCard';
-
-interface SkillCategoryProps {
-  title: string;
-  skills: string[];
-}
-
-const SkillCategory = ({ title, skills }: SkillCategoryProps) => (
-  <SpotlightCard className="h-full">
-    <h3 className="text-xl font-bold text-primary mb-6 border-b border-zinc-800 pb-2 inline-block">
-      {title}
-    </h3>
-    <div className="flex flex-wrap gap-3">
-      {skills.map((skill) => (
-        <span
-          key={skill}
-          className="px-3 py-1.5 bg-zinc-800/80 text-gray-300 rounded-md text-sm font-medium border border-zinc-700/50 hover:bg-zinc-700 hover:text-white hover:border-zinc-600 transition-all duration-300"
-        >
-          {skill}
-        </span>
-      ))}
-    </div>
-  </SpotlightCard>
-);
 
 export default function SkillsSection() {
-  const programmingLanguages = [
-    "Python", "Java", "JavaScript", "TypeScript", "C++", "Go", "Kotlin"
-  ];
-  const frameworks = [
-    "React", "Next.js", "Vue.js", "Angular", "Node.js", "Express.js", "Spring Boot", "Django", "Flask"
-  ];
-  const tools = [
-    "Git", "Docker", "Kubernetes", "AWS", "Azure", "GCP", "VS Code", "Jira", "Figma"
-  ];
-  const databases = [
-    "PostgreSQL", "MongoDB", "MySQL", "Firebase Firestore", "Redis"
+  const skills = [
+    { name: "Kotlin", size: "text-6xl", opacity: "opacity-100", weight: "font-black" },
+    { name: "Next.js", size: "text-7xl", opacity: "opacity-90", weight: "font-bold" },
+    { name: "React", size: "text-5xl", opacity: "opacity-80", weight: "font-bold" },
+    { name: "Python", size: "text-6xl", opacity: "opacity-100", weight: "font-black" },
+    { name: "TypeScript", size: "text-4xl", opacity: "opacity-70", weight: "font-medium" },
+    { name: "Firebase", size: "text-5xl", opacity: "opacity-90", weight: "font-bold" },
+    { name: "Android", size: "text-6xl", opacity: "opacity-80", weight: "font-black" },
+    { name: "Java", size: "text-4xl", opacity: "opacity-60", weight: "font-medium" },
+    { name: "Tailwind", size: "text-5xl", opacity: "opacity-90", weight: "font-bold" },
+    { name: "Node.js", size: "text-4xl", opacity: "opacity-70", weight: "font-medium" },
+    { name: "Git", size: "text-3xl", opacity: "opacity-50", weight: "font-normal" },
+    { name: "Figma", size: "text-4xl", opacity: "opacity-60", weight: "font-medium" },
+    { name: "AWS", size: "text-3xl", opacity: "opacity-50", weight: "font-normal" },
+    { name: "SQL", size: "text-4xl", opacity: "opacity-60", weight: "font-bold" },
+    { name: "Go", size: "text-5xl", opacity: "opacity-80", weight: "font-bold" },
   ];
 
   return (
-    <SectionContainer id="skills">
-      <div className="mb-16 text-center">
-        <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
-          My <span className="text-secondary">Skills</span>
-        </h2>
-        <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary rounded-full mx-auto"></div>
-      </div>
+    <SectionContainer id="skills" className="relative py-32 overflow-hidden">
+       {/* Giant Watermark */}
+       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[40vw] font-black text-cyan-500/5 select-none pointer-events-none z-0 leading-none">
+          03
+        </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 max-w-5xl mx-auto">
-        <SkillCategory title="Programming Languages" skills={programmingLanguages} />
-        <SkillCategory title="Frameworks & Libraries" skills={frameworks} />
-        <SkillCategory title="Tools & Platforms" skills={tools} />
-        <SkillCategory title="Databases" skills={databases} />
+      <div className="max-w-7xl mx-auto px-6 relative z-10 text-center">
+        <h2 className="text-sm font-mono text-cyan-400 tracking-[1em] mb-12 uppercase">
+          Capabilities & Arsenal
+        </h2>
+        
+        <div className="flex flex-wrap justify-center items-center gap-x-8 gap-y-4 max-w-5xl mx-auto">
+          {skills.map((skill, i) => (
+            <span 
+              key={skill.name} 
+              className={`${skill.size} ${skill.opacity} ${skill.weight} text-white tracking-tighter hover:text-cyan-400 hover:scale-110 transition-all duration-300 cursor-default select-none`}
+            >
+              {skill.name}
+            </span>
+          ))}
+        </div>
       </div>
     </SectionContainer>
   );

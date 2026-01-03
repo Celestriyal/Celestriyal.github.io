@@ -1,59 +1,98 @@
-import ProjectsSection from '../components/ProjectsSection';
-import AboutSection from '../components/AboutSection';
-import SkillsSection from '../components/SkillsSection';
-import PixelBlast from '../components/PixelBlast'; // Import PixelBlast
-import GradientText from '../components/GradientText';
-import ContactSection from '../components/ContactSection'; // Import ContactSection
+'use client';
+
+import { useRef, useState } from 'react';
+import { motion, useScroll, useTransform, useMotionValueEvent } from 'framer-motion';
+import ArtisticBackground from '../components/ArtisticBackground';
+import MotionGraphics from '../components/MotionGraphics';
+import SkillsSystem from '../components/SkillsSystem';
+import ProjectsSystem from '../components/ProjectsSystem';
+import ContactSection from '../components/ContactSection';
+import Starfield from '../components/Starfield';
 
 export default function Home() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [bgShift, setBgShift] = useState(0);
+  const [blackout, setBlackout] = useState(0);
+  const [gridOpacity, setGridOpacity] = useState(0);
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"]
+  });
+
+  const heroScale = useTransform(scrollYProgress, [0, 0.2], [1, 0.8]);
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
+
+  // Dynamic Background Engine
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    // 1. Initial Color Shift (Hero -> Philosophy)
+    const shift = Math.min(Math.max(latest * 3.3, 0), 1);
+    setBgShift(shift);
+
+    // 2. Fade to Black (Philosophy -> Skills)
+    const fade = Math.min(Math.max((latest - 0.25) * 4, 0), 1);
+    setBlackout(fade);
+
+    // 3. Cyber Grid Reveal (Projects -> Contact)
+    // Starts appearing at 70% scroll
+    const grid = Math.min(Math.max((latest - 0.7) * 10, 0), 1);
+    setGridOpacity(grid);
+  });
+
   return (
-    <>
-      <section id="home" className="relative flex items-center justify-center h-screen bg-dark overflow-hidden">
-        {/* Animated Background */}
-        <div className="absolute inset-0 z-0">
-          <PixelBlast
-            color="#4079ff" // Theme Primary (Bright Blue)
-            variant="square"
-            pixelSize={3}
-            patternScale={2}
-            patternDensity={1}
-            enableRipples={true}
-            rippleIntensityScale={0.8}
-            rippleSpeed={0.5}
-            edgeFade={0.5}
-            transparent={false}
-            className=""
-            style={{}}
-          />
+    <main ref={containerRef} className="relative min-h-[500vh] font-sans selection:bg-white selection:text-black bg-black">
+      
+      {/* BACKGROUND LAYERS */}
+      <ArtisticBackground shift={bgShift} blackout={blackout} />
+      <Starfield opacity={blackout * (1 - gridOpacity)} />
+      <MotionGraphics opacity={gridOpacity} />
+      
+      {/* Fixed UI Elements */}
+      <div className="fixed top-8 left-8 z-50 mix-blend-difference text-white font-mono text-xs tracking-widest">
+        ASHFAQ — PORTFOLIO ©2026
+      </div>
+      
+      {/* HERO SECTION */}
+      <motion.section 
+        style={{ scale: heroScale, opacity: heroOpacity }}
+        className="fixed top-0 left-0 w-full h-screen flex flex-col items-center justify-center z-10 pointer-events-none"
+      >
+        <h1 className="text-[18vw] font-black leading-none tracking-tighter text-white mix-blend-overlay">
+          ASHFAQ
+        </h1>
+        
+        <div className="mt-2 text-xl md:text-3xl font-light tracking-[0.3em] text-white mix-blend-difference uppercase">
+          Artist • Developer • Creator
         </div>
 
-        <div className="relative z-10 text-center px-4">
-          <h1 className="text-7xl md:text-9xl font-extrabold leading-tight text-white mb-6 tracking-tighter">
-            Hi, I&apos;m <GradientText>Ashfaq</GradientText>
-          </h1>
-          <p className="text-2xl md:text-4xl text-gray-100 font-medium mb-10 max-w-3xl mx-auto">
-            A <span className="text-secondary">Student</span> aspiring to build amazing things.
-          </p>
-          <div className="space-x-4">
-            <a
-              href="#projects"
-              className="inline-block px-8 py-3 text-black text-lg font-semibold rounded-full shadow-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(64,255,170,0.5)]"
-              style={{
-                backgroundImage: 'linear-gradient(135deg, #40ffaa, #4079ff)',
-              }}
-            >
-              View My Work
-            </a>
-          </div>
+        <div className="absolute bottom-12 flex justify-between w-[90vw] mix-blend-difference text-white font-mono text-xs md:text-sm uppercase opacity-70">
+          <span>Based in India</span>
+          <span>Scroll to Explore</span>
         </div>
-      </section>
-      
-      <AboutSection />
-      <ProjectsSection />
-      <SkillsSection />
-      <ContactSection />
-    </>
+      </motion.section>
+
+      {/* SCROLLABLE CONTENT */}
+      <div className="relative z-20 w-full pt-[100vh]">
+        
+        {/* PHILOSOPHY */}
+        <section className="min-h-[80vh] flex items-center justify-center px-6 md:px-24">
+          <div className="max-w-4xl">
+            <h2 className="text-4xl md:text-7xl font-bold leading-tight text-white mix-blend-overlay">
+              "I don't just write code. I sculpt <span className="italic">digital experiences</span> that live at the intersection of logic and pure chaos."
+            </h2>
+          </div>
+        </section>
+
+        {/* SKILLS SYSTEM */}
+        <SkillsSystem />
+
+        {/* PROJECTS SYSTEM */}
+        <ProjectsSystem />
+
+        {/* CONTACT SECTION */}
+        <ContactSection />
+
+      </div>
+    </main>
   );
 }
-      
-      
