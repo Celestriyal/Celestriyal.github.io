@@ -3,7 +3,7 @@
 import { useRef, useState } from 'react';
 import { motion, useScroll, useTransform, useMotionValueEvent } from 'framer-motion';
 import ArtisticBackground from '../components/ArtisticBackground';
-import MotionGraphics from '../components/MotionGraphics';
+import FluidBackground from '../components/FluidBackground';
 import SkillsSystem from '../components/SkillsSystem';
 import ProjectsSystem from '../components/ProjectsSystem';
 import ContactSection from '../components/ContactSection';
@@ -22,6 +22,9 @@ export default function Home() {
 
   const heroScale = useTransform(scrollYProgress, [0, 0.2], [1, 0.8]);
   const heroOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
+  
+  // Fluid Background Opacity: Visible at start, fades out completely before Skills section (approx 0.36)
+  const fluidOpacity = useTransform(scrollYProgress, [0.2, 0.35], [1, 0]);
 
   // Dynamic Background Engine
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
@@ -40,12 +43,14 @@ export default function Home() {
   });
 
   return (
-    <main ref={containerRef} className="relative min-h-[500vh] font-sans selection:bg-white selection:text-black bg-black">
+    <main ref={containerRef} className="relative min-h-[500vh] font-sans selection:bg-white selection:text-black">
       
       {/* BACKGROUND LAYERS */}
+      <motion.div style={{ opacity: fluidOpacity }}>
+        <FluidBackground />
+      </motion.div>
       <ArtisticBackground shift={bgShift} blackout={blackout} />
       <Starfield opacity={blackout * (1 - gridOpacity)} />
-      <MotionGraphics opacity={gridOpacity} />
       
       {/* Fixed UI Elements */}
       <div className="fixed top-8 left-8 z-50 mix-blend-difference text-white font-mono text-xs tracking-widest">
