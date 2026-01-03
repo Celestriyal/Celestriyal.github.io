@@ -34,7 +34,7 @@ export default function SkillsSystem() {
       
       {/* HEADER */}
       <div className="text-center mb-24">
-        <h2 className="text-6xl md:text-8xl font-black text-white mix-blend-overlay tracking-tighter">
+        <h2 className="text-5xl md:text-8xl font-black text-white mix-blend-overlay tracking-tighter">
           MY SKILLS
         </h2>
         <div className="w-24 h-[1px] bg-white/30 mx-auto mt-6 rounded-full"></div>

@@ -1,10 +1,26 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, MotionValue, useTransform } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
-export default function FluidBackground({ opacity = 1 }: { opacity?: number }) {
+interface FluidBackgroundProps {
+  opacity?: number;
+  scrollProgress?: MotionValue<number>;
+}
+
+export default function FluidBackground({ opacity = 1, scrollProgress }: FluidBackgroundProps) {
   const [mounted, setMounted] = useState(false);
+
+  // Default motion value if none provided (fallback)
+  const defaultProgress = useTransform(() => 0);
+  const progress = scrollProgress || defaultProgress;
+
+  // Dynamic Colors Interpolation
+  // Transition happens between scroll 0.1 and 0.25 (as user scrolls past hero)
+  const color1 = useTransform(progress, [0, 0.25], ["hsla(222, 100%, 63%, 0.4)", "hsla(0, 100%, 50%, 0.4)"]); // Blue -> Red
+  const color2 = useTransform(progress, [0, 0.25], ["hsla(153, 100%, 63%, 0.3)", "hsla(39, 100%, 50%, 0.3)"]);  // Mint -> Orange
+  const color3 = useTransform(progress, [0, 0.25], ["hsla(270, 70%, 60%, 0.3)", "hsla(60, 100%, 50%, 0.3)"]);   // Purple -> Yellow
+  const color4 = useTransform(progress, [0, 0.25], ["hsla(210, 80%, 60%, 0.3)", "hsla(330, 100%, 71%, 0.3)"]);  // Blue -> Hot Pink
 
   useEffect(() => {
     setMounted(true);
@@ -18,9 +34,10 @@ export default function FluidBackground({ opacity = 1 }: { opacity?: number }) {
       style={{ opacity }}
     >
       <div className="absolute inset-0 opacity-50 filter blur-[80px]">
-        {/* Blob 1 - Primary Blue */}
+        {/* Blob 1 - Primary Blue -> Red */}
         <motion.div
-          className="absolute top-[-10%] left-[-10%] h-[50vh] w-[50vh] rounded-full bg-primary/40 mix-blend-screen"
+          className="absolute top-[-10%] left-[-10%] h-[50vh] w-[50vh] rounded-full mix-blend-screen"
+          style={{ backgroundColor: color1 }}
           animate={{
             x: [0, 100, 0],
             y: [0, 50, 0],
@@ -33,9 +50,10 @@ export default function FluidBackground({ opacity = 1 }: { opacity?: number }) {
           }}
         />
 
-        {/* Blob 2 - Secondary Mint */}
+        {/* Blob 2 - Secondary Mint -> Orange */}
         <motion.div
-          className="absolute top-[20%] right-[-10%] h-[60vh] w-[60vh] rounded-full bg-secondary/30 mix-blend-screen"
+          className="absolute top-[20%] right-[-10%] h-[60vh] w-[60vh] rounded-full mix-blend-screen"
+          style={{ backgroundColor: color2 }}
           animate={{
             x: [0, -100, 0],
             y: [0, 100, 0],
@@ -49,9 +67,10 @@ export default function FluidBackground({ opacity = 1 }: { opacity?: number }) {
           }}
         />
 
-        {/* Blob 3 - Accent/Purple */}
+        {/* Blob 3 - Purple -> Yellow */}
         <motion.div
-          className="absolute bottom-[-10%] left-[20%] h-[50vh] w-[50vh] rounded-full bg-purple-600/30 mix-blend-screen"
+          className="absolute bottom-[-10%] left-[20%] h-[50vh] w-[50vh] rounded-full mix-blend-screen"
+          style={{ backgroundColor: color3 }}
           animate={{
             x: [0, 50, 0],
             y: [0, -50, 0],
@@ -65,9 +84,10 @@ export default function FluidBackground({ opacity = 1 }: { opacity?: number }) {
           }}
         />
 
-        {/* Blob 4 - Cyan/Blue */}
+        {/* Blob 4 - Blue -> Hot Pink */}
         <motion.div
-          className="absolute bottom-[10%] right-[10%] h-[40vh] w-[40vh] rounded-full bg-blue-500/30 mix-blend-screen"
+          className="absolute bottom-[10%] right-[10%] h-[40vh] w-[40vh] rounded-full mix-blend-screen"
+          style={{ backgroundColor: color4 }}
           animate={{
             x: [0, -50, 0],
             y: [0, -100, 0],

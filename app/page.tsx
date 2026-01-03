@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef, useState } from 'react';
+import Image from 'next/image';
 import { motion, useScroll, useTransform, useMotionValueEvent } from 'framer-motion';
 import ArtisticBackground from '../components/ArtisticBackground';
 import FluidBackground from '../components/FluidBackground';
@@ -13,7 +14,6 @@ export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [bgShift, setBgShift] = useState(0);
   const [blackout, setBlackout] = useState(0);
-  const [gridOpacity, setGridOpacity] = useState(0);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -35,11 +35,6 @@ export default function Home() {
     // 2. Fade to Black (Philosophy -> Skills)
     const fade = Math.min(Math.max((latest - 0.25) * 4, 0), 1);
     setBlackout(fade);
-
-    // 3. Cyber Grid Reveal (Projects -> Contact)
-    // Starts appearing at 70% scroll
-    const grid = Math.min(Math.max((latest - 0.7) * 10, 0), 1);
-    setGridOpacity(grid);
   });
 
   return (
@@ -47,15 +42,42 @@ export default function Home() {
       
       {/* BACKGROUND LAYERS */}
       <motion.div style={{ opacity: fluidOpacity }}>
-        <FluidBackground />
+        <FluidBackground scrollProgress={scrollYProgress} />
       </motion.div>
       <ArtisticBackground shift={bgShift} blackout={blackout} />
-      <Starfield opacity={blackout * (1 - gridOpacity)} />
+      <Starfield opacity={blackout} />
       
       {/* Fixed UI Elements */}
-      <div className="fixed top-8 left-8 z-50 mix-blend-difference text-white font-mono text-xs tracking-widest">
-        ASHFAQ — PORTFOLIO ©2026
+      <div className="fixed top-8 left-8 z-50 flex items-center gap-3 mix-blend-difference text-white font-mono text-xs tracking-widest">
+        <Image 
+          src="/logo.png" 
+          alt="Logo" 
+          width={32} 
+          height={32} 
+          className="rounded-full overflow-hidden object-cover"
+        />
+        <span className="md:hidden">ASHFAQ</span>
+        <span className="hidden md:inline">ASHFAQ — PORTFOLIO ©2026</span>
       </div>
+
+      {/* Navigation Buttons */}
+      <motion.div 
+        style={{ opacity: heroOpacity }}
+        className="fixed top-8 right-8 z-50 flex gap-4 md:gap-8 mix-blend-difference text-white font-mono text-xs tracking-widest"
+      >
+        <button 
+          onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
+          className="hover:opacity-70 transition-opacity"
+        >
+          PROJECTS
+        </button>
+        <button 
+          onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+          className="hover:opacity-70 transition-opacity"
+        >
+          CONTACT
+        </button>
+      </motion.div>
       
       {/* HERO SECTION */}
       <motion.section 
@@ -66,11 +88,11 @@ export default function Home() {
           ASHFAQ
         </h1>
         
-        <div className="mt-2 text-xl md:text-3xl font-light tracking-[0.3em] text-white mix-blend-difference uppercase">
+        <div className="mt-2 text-center text-sm md:text-3xl font-light tracking-[0.2em] md:tracking-[0.3em] text-white mix-blend-difference uppercase px-4">
           Artist • Developer • Creator
         </div>
 
-        <div className="absolute bottom-12 flex justify-between w-[90vw] mix-blend-difference text-white font-mono text-xs md:text-sm uppercase opacity-70">
+        <div className="absolute bottom-12 flex flex-col md:flex-row justify-between items-center w-[90vw] gap-2 md:gap-0 mix-blend-difference text-white font-mono text-[10px] md:text-sm uppercase opacity-70">
           <span>Based in India</span>
           <span>Scroll to Explore</span>
         </div>
@@ -92,10 +114,14 @@ export default function Home() {
         <SkillsSystem />
 
         {/* PROJECTS SYSTEM */}
-        <ProjectsSystem />
+        <div id="projects">
+          <ProjectsSystem />
+        </div>
 
         {/* CONTACT SECTION */}
-        <ContactSection />
+        <div id="contact">
+          <ContactSection />
+        </div>
 
       </div>
     </main>

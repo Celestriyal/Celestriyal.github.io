@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { Mail, Github, Linkedin, Copy, Check, ArrowUpRight } from 'lucide-react';
 import SectionContainer from './SectionContainer';
 import SpotlightCard from './SpotlightCard';
@@ -111,6 +112,7 @@ export default function ContactSection() {
       <div className="mt-32 border-t border-zinc-800/50 pt-12 max-w-7xl mx-auto px-6">
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="flex flex-col md:flex-row items-center gap-2 md:gap-8">
+            <Image src="/logo.png" alt="Logo" width={40} height={40} className="rounded-full" />
             <span className="text-2xl font-bold text-white tracking-tighter">ASHFAQ</span>
             <span className="text-zinc-500 text-sm hidden md:inline">|</span>
             <span className="text-zinc-500 text-sm">
