@@ -1,0 +1,18 @@
+.circular-text {
+  position: relative;
+  width: 100%; /* Adjust as needed */
+  height: 100%; /* Adjust as needed */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.circular-text span {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform-origin: 0 100px; /* Adjust 100px to half of the desired circle diameter */
+  font-size: 1.5rem; /* Adjust as needed */
+  font-weight: bold;
+  color: white; /* Or inherit */
+}
