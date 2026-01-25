@@ -126,8 +126,9 @@ function PerformanceDemo() {
 
     return (
         <div className="w-full p-8 rounded-3xl border border-white/10 bg-[#080808] relative overflow-hidden group">
-            {/* Darker, subtler background */}
-            <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-10 mix-blend-overlay" />
+            {/* Vibrant background */}
+            <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/20 via-purple-500/20 to-[#50C878]/20 blur-3xl" />
+            <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-40 mix-blend-overlay" />
             
             <div className="relative z-10 flex flex-col items-center justify-center min-h-[400px] gap-8">
                 
