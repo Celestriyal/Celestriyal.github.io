@@ -105,8 +105,6 @@ function InfiniteMarquee() {
     const techs = ["Kotlin", "Firebase", "Room DB", "Coroutines", "Flow", "Hilt", "Retrofit", "Jetpack", "Material You", "Git"];
     return (
         <div className="relative w-full overflow-hidden py-10 bg-[#0A0A0A] border-y border-white/5 backdrop-blur-sm">
-            <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-black to-transparent z-10" />
-            <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-black to-transparent z-10" />
             <motion.div 
                 className="flex gap-16 whitespace-nowrap"
                 animate={{ x: [0, -1000] }}
