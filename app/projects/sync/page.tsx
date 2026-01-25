@@ -131,18 +131,6 @@ function PerformanceDemo() {
             <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-40 mix-blend-overlay" />
             
             <div className="relative z-10 flex flex-col items-center justify-center min-h-[400px] gap-8">
-                
-                {/* Background Content to show off blur */}
-                <div className="absolute inset-0 flex flex-col gap-4 p-8 pt-20 opacity-50 select-none pointer-events-none">
-                    <div className="flex justify-start"><div className="bg-[#1A1A1A] p-3 rounded-xl rounded-tl-none max-w-xs text-xs text-zinc-500">Hey, is the server down?</div></div>
-                    <div className="flex justify-end"><div className="bg-[#50C878]/20 p-3 rounded-xl rounded-tr-none max-w-xs text-xs text-[#50C878]">No, just maintenance. Check the announcements.</div></div>
-                    <div className="flex justify-start"><div className="bg-[#1A1A1A] p-3 rounded-xl rounded-tl-none max-w-xs text-xs text-zinc-500">Oh cool. Will do.</div></div>
-                    <div className="space-y-2 mt-4">
-                        <div className="h-2 w-3/4 bg-white/5 rounded-full" />
-                        <div className="h-2 w-1/2 bg-white/5 rounded-full" />
-                        <div className="h-2 w-full bg-white/5 rounded-full" />
-                    </div>
-                </div>
 
                 {/* The UI Card changing based on mode */}
                 <motion.div 
