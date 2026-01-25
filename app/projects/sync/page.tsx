@@ -399,7 +399,7 @@ export default function SyncProjectPage() {
       <InfiniteMarquee />
 
       {/* Feature Sections */}
-      <div className="space-y-48 py-32" id="chat-section">
+      <div className="space-y-48 py-32 relative z-10" id="chat-section">
         
         {/* 1. CHAT & REAL-TIME DEMO */}
         <section className="container mx-auto px-4">
