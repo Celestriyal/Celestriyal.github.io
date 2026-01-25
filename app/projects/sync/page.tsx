@@ -413,7 +413,7 @@ export default function SyncProjectPage() {
               >
                   <motion.h2 variants={smoothEntry} className="text-5xl font-bold">
                     Real-time <br />
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#50C878] to-emerald-200">Conversations</span>
+                    <span className="text-[#50C878]">Conversations</span>
                   </motion.h2>
                   <motion.p variants={smoothEntry} className="text-xl text-zinc-400 font-light leading-relaxed">
                     A messaging experience that feels alive. Sync uses <span className="text-white">Firestore</span> listeners to push updates instantly. Watch the messages flow in real-time.
