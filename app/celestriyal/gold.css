@@ -1,0 +1,99 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .text-gold-master {
+    /* Faceted 24K Gold with sharp specular highlights */
+    background: linear-gradient(
+      -60deg,
+      #3a2d0f 0%,   /* Deep Shadow */
+      #8d743a 15%,  /* Burnished */
+      #c3a343 25%,  /* Base Gold */
+      #ffffff 30%,  /* Sharp Specular Facet */
+      #f1d9a7 35%,  /* Highlight */
+      #c3a343 50%,  /* Base Gold */
+      #ffffff 55%,  /* Second Facet */
+      #f1d9a7 65%,  /* Highlight */
+      #8d743a 85%,  /* Burnished */
+      #3a2d0f 100%  /* Deep Shadow */
+    );
+    background-size: 300% auto;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: goldShimmer 12s linear infinite;
+    
+    /* Layered 3D Depth + Light Bloom */
+    filter: 
+      drop-shadow(0 1px 0px #ffffff44)
+      drop-shadow(0 4px 2px rgba(0, 0, 0, 0.8))
+      drop-shadow(0 0 20px rgba(195, 163, 67, 0.2));
+  }
+
+  /* REPLACED FAST WHITE BAR WITH SLOW AMBIENT GLINT */
+  .gold-glint-pro {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .gold-glint-pro::after {
+    content: '';
+    position: absolute;
+    top: -100%;
+    left: -150%;
+    width: 300%;
+    height: 300%;
+    /* Softened the glint to be a warm amber sheen rather than a white bar */
+    background: linear-gradient(
+      115deg,
+      transparent 0%,
+      rgba(255, 240, 150, 0) 45%,
+      rgba(255, 255, 255, 0.15) 50%,
+      rgba(255, 240, 150, 0.05) 52%,
+      rgba(255, 240, 150, 0) 55%,
+      transparent 100%
+    );
+    transform: rotate(-35deg);
+    /* Much slower and subtler */
+    animation: glintPro 12s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    pointer-events: none;
+  }
+
+  @keyframes goldShimmer {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 300% 50%; }
+  }
+
+  @keyframes glintPro {
+    0% { left: -150%; opacity: 0; }
+    20% { opacity: 0.8; }
+    50% { left: 150%; opacity: 0.8; }
+    60% { left: 150%; opacity: 0; }
+    100% { left: 150%; opacity: 0; }
+  }
+
+  .bg-gold-luxury {
+    background: linear-gradient(
+      135deg,
+      #3a2d0f 0%,
+      #c3a343 30%,
+      #ffffff 50%,
+      #c3a343 70%,
+      #3a2d0f 100%
+    );
+    background-size: 200% 200%;
+    box-shadow: 
+      0 0 20px rgba(195, 163, 67, 0.1),
+      inset 0 0 10px rgba(255, 255, 255, 0.1);
+    transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .bg-gold-luxury:hover {
+    background-position: 100% 100%;
+    box-shadow: 
+      0 0 40px rgba(195, 163, 67, 0.4),
+      inset 0 0 20px rgba(255, 255, 255, 0.3);
+    transform: scale(1.02);
+  }
+}

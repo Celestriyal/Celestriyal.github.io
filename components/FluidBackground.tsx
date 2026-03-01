@@ -15,12 +15,15 @@ export default function FluidBackground({ opacity = 1, scrollProgress }: FluidBa
   const defaultProgress = useTransform(() => 0);
   const progress = scrollProgress || defaultProgress;
 
-  // Dynamic Colors Interpolation
-  // Transition happens between scroll 0.1 and 0.25 (as user scrolls past hero)
-  const color1 = useTransform(progress, [0, 0.25], ["hsla(222, 100%, 63%, 0.4)", "hsla(0, 100%, 50%, 0.4)"]); // Blue -> Red
-  const color2 = useTransform(progress, [0, 0.25], ["hsla(153, 100%, 63%, 0.3)", "hsla(39, 100%, 50%, 0.3)"]);  // Mint -> Orange
-  const color3 = useTransform(progress, [0, 0.25], ["hsla(270, 70%, 60%, 0.3)", "hsla(60, 100%, 50%, 0.3)"]);   // Purple -> Yellow
-  const color4 = useTransform(progress, [0, 0.25], ["hsla(210, 80%, 60%, 0.3)", "hsla(330, 100%, 71%, 0.3)"]);  // Blue -> Hot Pink
+  // Majestic Cosmic Palette
+  // Deep Indigo -> Midnight Purple
+  const color1 = useTransform(progress, [0, 0.25], ["hsla(230, 85%, 55%, 0.35)", "hsla(260, 80%, 45%, 0.4)"]); 
+  // Aurora Teal -> Deep Emerald
+  const color2 = useTransform(progress, [0, 0.25], ["hsla(175, 90%, 50%, 0.25)", "hsla(160, 100%, 35%, 0.3)"]);
+  // Royal Amethyst -> Cosmic Crimson
+  const color3 = useTransform(progress, [0, 0.25], ["hsla(285, 80%, 60%, 0.3)", "hsla(320, 90%, 45%, 0.3)"]);
+  // Ether Gold -> Sunburst Amber
+  const color4 = useTransform(progress, [0, 0.25], ["hsla(45, 100%, 65%, 0.2)", "hsla(30, 100%, 55%, 0.25)"]);
 
   useEffect(() => {
     setMounted(true);
@@ -33,7 +36,7 @@ export default function FluidBackground({ opacity = 1, scrollProgress }: FluidBa
       className="fixed inset-0 z-[-1] overflow-hidden transition-opacity duration-300 pointer-events-none"
       style={{ opacity }}
     >
-      <div className="absolute inset-0 opacity-50 filter blur-[80px]">
+      <div className="absolute inset-0 opacity-40 filter blur-[120px]">
         {/* Blob 1 - Primary Blue -> Red */}
         <motion.div
           className="absolute top-[-10%] left-[-10%] h-[50vh] w-[50vh] rounded-full mix-blend-screen"

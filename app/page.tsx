@@ -5,8 +5,8 @@ import Image from 'next/image';
 import { motion, useScroll, useTransform, useMotionValueEvent } from 'framer-motion';
 import ArtisticBackground from '../components/ArtisticBackground';
 import FluidBackground from '../components/FluidBackground';
-import SkillsSystem from '../components/SkillsSystem';
-import ProjectsSystem from '../components/ProjectsSystem';
+import SkillsBento from '../components/SkillsBento';
+import ProjectsBento from '../components/ProjectsBento';
 import ContactSection from '../components/ContactSection';
 import Starfield from '../components/Starfield';
 
@@ -20,8 +20,8 @@ export default function Home() {
     offset: ["start start", "end end"]
   });
 
-  const heroScale = useTransform(scrollYProgress, [0, 0.2], [1, 0.8]);
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
+  const heroScale = useTransform(scrollYProgress, [0, 0.12], [1, 0.8]);
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.12], [1, 0]);
   
   // Fluid Background Opacity: Visible at start, fades out completely before Skills section (approx 0.36)
   const fluidOpacity = useTransform(scrollYProgress, [0.2, 0.35], [1, 0]);
@@ -102,20 +102,32 @@ export default function Home() {
       <div className="relative z-20 w-full pt-[100vh]">
         
         {/* PHILOSOPHY */}
-        <section className="min-h-[80vh] flex items-center justify-center px-6 md:px-24">
-          <div className="max-w-4xl">
-            <h2 className="text-4xl md:text-7xl font-bold leading-tight text-white mix-blend-overlay">
-              "I don't just write code. I sculpt <span className="italic">digital experiences</span> that live at the intersection of logic and pure chaos."
+        <section className="min-h-[100vh] flex items-center justify-center px-6 md:px-24">
+          <motion.div 
+            initial={{ opacity: 0, y: 100 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1 }}
+            className="max-w-5xl bg-white/5 backdrop-blur-2xl border border-white/10 p-12 md:p-24 rounded-[4rem] relative overflow-hidden group"
+          >
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+            <h2 className="text-4xl md:text-7xl font-bold leading-tight text-white mix-blend-difference relative z-10">
+              "I don't just write code. I sculpt <span className="italic text-white/50">digital experiences</span> that live at the intersection of logic and pure imagination."
             </h2>
-          </div>
+            <div className="mt-12 flex items-center gap-6 opacity-40 group-hover:opacity-100 transition-opacity duration-700">
+              <div className="h-[1px] w-12 bg-white"></div>
+              <span className="font-mono text-sm tracking-[0.3em] uppercase text-white">The Vision</span>
+            </div>
+            {/* Background Glow */}
+            <div className="absolute -bottom-48 -right-48 w-96 h-96 bg-blue-500/10 blur-[120px] rounded-full"></div>
+          </motion.div>
         </section>
 
         {/* SKILLS SYSTEM */}
-        <SkillsSystem />
+        <SkillsBento />
 
         {/* PROJECTS SYSTEM */}
         <div id="projects">
-          <ProjectsSystem />
+          <ProjectsBento />
         </div>
 
         {/* CONTACT SECTION */}

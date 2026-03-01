@@ -18,17 +18,17 @@ uniform float uBlackout; // 0.0 = Colorful, 1.0 = Black
 uniform vec2 uResolution;
 varying vec2 vUv;
 
-// Palette 1: "Electric Dreams" (Hero) - Cool, Cybernetic, Vibrant
-vec3 p1_A = vec3(0.1, 0.0, 0.3); // Deep Indigo
-vec3 p1_B = vec3(0.0, 0.4, 0.9); // Electric Blue
-vec3 p1_C = vec3(0.8, 0.0, 1.0); // Neon Purple
-vec3 p1_D = vec3(0.0, 0.9, 0.8); // Cyan
+// Palette 1: "Hyper-Glow Prismatic" (Hero)
+vec3 p1_A = vec3(0.05, 0.02, 0.12); // Deep Midnight
+vec3 p1_B = vec3(0.85, 1.0, 0.25);  // Electric Lime (Surprise!)
+vec3 p1_C = vec3(1.0, 0.15, 0.75);  // Vivid Fuchsia
+vec3 p1_D = vec3(0.1, 0.85, 1.0);   // Arctic Cyan
 
-// Palette 2: "Nordic Night" (Content) - Clean, Professional, Deep
-vec3 p2_A = vec3(0.01, 0.02, 0.05); // Deep Space Black
-vec3 p2_B = vec3(0.1, 0.15, 0.25);  // Cool Grey
-vec3 p2_C = vec3(0.2, 0.3, 0.4);    // Slate Blue
-vec3 p2_D = vec3(0.2, 0.7, 1.0);    // Sky Blue
+// Palette 2: "Shadow Neon" (Content)
+vec3 p2_A = vec3(0.01, 0.01, 0.03); // Void
+vec3 p2_B = vec3(0.2, 0.3, 0.05);   // Dark Lime
+vec3 p2_C = vec3(0.3, 0.05, 0.2);   // Dark Rose
+vec3 p2_D = vec3(0.05, 0.2, 0.3);   // Dark Steel Blue
 
 // Noise function
 float random (in vec2 _st) {
@@ -71,8 +71,8 @@ void main() {
     st.x *= uResolution.x/uResolution.y;
 
     // MOTION SHIFT: Modulate warp/zoom based on uShift
-    float warp = 1.0 + uShift * 1.5; // Increases distortion
-    float zoom = 1.0 - uShift * 0.3; // Zooms out slightly
+    float warp = 1.3 + uShift * 2.0; // More liquid warping
+    float zoom = 0.8 - uShift * 0.2; // Slightly zoomed in for detail
 
     vec2 q = vec2(0.);
     q.x = fbm( st * zoom + 0.00 * uTime);

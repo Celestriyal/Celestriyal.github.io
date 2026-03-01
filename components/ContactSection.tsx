@@ -39,18 +39,18 @@ export default function ContactSection() {
         {/* Email Card - Click to Copy */}
         <div onClick={handleCopy} className="cursor-pointer group">
           <SpotlightCard className="h-full flex flex-col items-start justify-between min-h-[200px]" spotlightColor="rgba(34, 211, 238, 0.15)">
-            <div className="mb-8 p-3 bg-zinc-800/50 rounded-lg border border-zinc-700/50 group-hover:border-cyan-500/30 transition-colors">
+            <div className="mb-8 p-3 bg-white/5 rounded-2xl border border-white/10 group-hover:border-cyan-500/30 transition-colors">
               <Mail className="w-6 h-6 text-cyan-400" />
             </div>
             <div className="w-full">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-zinc-400 text-sm font-mono uppercase tracking-wider">Email</span>
+                <span className="text-white/40 text-sm font-mono uppercase tracking-wider">Email</span>
                 {copied ? (
                   <span className="flex items-center text-emerald-400 text-xs font-bold gap-1 bg-emerald-400/10 px-2 py-1 rounded">
                     <Check className="w-3 h-3" /> COPIED
                   </span>
                 ) : (
-                  <Copy className="w-4 h-4 text-zinc-600 group-hover:text-cyan-400 transition-colors" />
+                  <Copy className="w-4 h-4 text-white/20 group-hover:text-cyan-400 transition-colors" />
                 )}
               </div>
               <p className="text-xl md:text-2xl font-semibold text-white truncate w-full">
@@ -68,13 +68,13 @@ export default function ContactSection() {
           className="group block"
         >
           <SpotlightCard className="h-full flex flex-col items-start justify-between min-h-[200px]" spotlightColor="rgba(59, 130, 246, 0.15)">
-            <div className="mb-8 p-3 bg-zinc-800/50 rounded-lg border border-zinc-700/50 group-hover:border-blue-500/30 transition-colors">
+            <div className="mb-8 p-3 bg-white/5 rounded-2xl border border-white/10 group-hover:border-blue-500/30 transition-colors">
               <Linkedin className="w-6 h-6 text-blue-400" />
             </div>
             <div className="w-full">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-zinc-400 text-sm font-mono uppercase tracking-wider">Connect</span>
-                <ArrowUpRight className="w-4 h-4 text-zinc-600 group-hover:text-blue-400 transition-colors" />
+                <span className="text-white/40 text-sm font-mono uppercase tracking-wider">Connect</span>
+                <ArrowUpRight className="w-4 h-4 text-white/20 group-hover:text-blue-400 transition-colors" />
               </div>
               <p className="text-xl md:text-2xl font-semibold text-white">
                 LinkedIn
@@ -91,13 +91,13 @@ export default function ContactSection() {
           className="group block"
         >
           <SpotlightCard className="h-full flex flex-col items-start justify-between min-h-[200px]" spotlightColor="rgba(168, 85, 247, 0.15)">
-            <div className="mb-8 p-3 bg-zinc-800/50 rounded-lg border border-zinc-700/50 group-hover:border-purple-500/30 transition-colors">
+            <div className="mb-8 p-3 bg-white/5 rounded-2xl border border-white/10 group-hover:border-purple-500/30 transition-colors">
               <Github className="w-6 h-6 text-purple-400" />
             </div>
             <div className="w-full">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-zinc-400 text-sm font-mono uppercase tracking-wider">Code</span>
-                <ArrowUpRight className="w-4 h-4 text-zinc-600 group-hover:text-purple-400 transition-colors" />
+                <span className="text-white/40 text-sm font-mono uppercase tracking-wider">Code</span>
+                <ArrowUpRight className="w-4 h-4 text-white/20 group-hover:text-purple-400 transition-colors" />
               </div>
               <p className="text-xl md:text-2xl font-semibold text-white">
                 GitHub
