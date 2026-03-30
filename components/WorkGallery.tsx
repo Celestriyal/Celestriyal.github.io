@@ -10,7 +10,7 @@ const projects = [
     category: 'Android Ecosystem',
     year: '2025',
     description: 'Real-time social & educational platform built with Kotlin & Jetpack Compose.',
-    link: '/projects/sync'
+    link: 'https://celestriyal.tech/sync'
   },
   {
     id: '02',
