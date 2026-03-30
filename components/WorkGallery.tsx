@@ -8,7 +8,7 @@ const projects = [
     id: '01',
     title: 'SYNC',
     category: 'Android Ecosystem',
-    year: '2024',
+    year: '2025',
     description: 'Real-time social & educational platform built with Kotlin & Jetpack Compose.',
     link: '/projects/sync'
   },
@@ -22,11 +22,11 @@ const projects = [
   },
   {
     id: '03',
-    title: 'AURA',
-    category: 'Generative Art',
-    year: '2025',
-    description: 'WebGL-based visualizer reacting to audio input.',
-    link: '#'
+    title: 'VIBE WIRE',
+    category: 'Social Platform',
+    year: '2026',
+    description: 'Ephemeral chat room',
+    link: 'https://ashfaqcode.me/Vibe-Wire'
   }
 ];
 

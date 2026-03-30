@@ -96,7 +96,7 @@ export default function ProjectsBento() {
         {/* SYNC - The Flagship */}
         <ProjectCard 
           title="SYNC"
-          year="2024"
+          year="2025"
           description="A cloud-native Android ecosystem for seamless academic and social collaboration."
           tags={["Kotlin", "Firebase", "Design"]}
           link="/projects/sync"
@@ -105,13 +105,13 @@ export default function ProjectsBento() {
           isLarge={true}
         />
 
-        {/* AURA - The Visuals */}
+        {/* VIBE WIRE - The Social */}
         <ProjectCard 
-          title="AURA"
+          title="VIBE WIRE"
           year="2026"
-          description="Minimalist motion design experiment."
+          description="Ephemeral chat room"
           tags={["Next.js", "GLSL"]}
-          link="#"
+          link="https://ashfaqcode.me/Vibe-Wire"
           color="rgba(64, 121, 255, 0.1)"
           className="md:col-span-2 md:row-span-1"
         />
