@@ -116,13 +116,13 @@ export default function ProjectsBento() {
           className="md:col-span-2 md:row-span-1"
         />
 
-        {/* CORE - The Engine */}
+        {/* NOVICE - The Progress Tracker */}
         <ProjectCard 
-          title="CORE"
+          title="Novice"
           year="2025"
-          description="Interactive physics and UI bridge."
+          description="Progress Tracker"
           tags={["Three.js", "React"]}
-          link="#"
+          link="https://ashfaqcode.me/novice"
           color="rgba(255, 100, 100, 0.1)"
           className="md:col-span-2 md:row-span-1"
         />
