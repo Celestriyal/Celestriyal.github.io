@@ -99,7 +99,7 @@ export default function ProjectsBento() {
           year="2025"
           description="A cloud-native Android ecosystem for seamless academic and social collaboration."
           tags={["Kotlin", "Firebase", "Design"]}
-          link="https://celestriyal.tech/sync"
+          link="https://sync-website-61474.web.app/"
           color="rgba(80, 200, 120, 0.1)"
           className="md:col-span-4 md:row-span-2"
           isLarge={true}
