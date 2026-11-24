@@ -9,6 +9,7 @@ import SkillsBento from '../components/SkillsBento';
 import ProjectsBento from '../components/ProjectsBento';
 import ContactSection from '../components/ContactSection';
 import Starfield from '../components/Starfield';
+import EarthHorizon from '../components/EarthHorizon';
 
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -38,7 +39,7 @@ export default function Home() {
   });
 
   return (
-    <main ref={containerRef} className="relative min-h-[500vh] font-sans selection:bg-white selection:text-black">
+    <main ref={containerRef} className="relative min-h-[500vh] overflow-x-clip font-sans selection:bg-white selection:text-black">
       
       {/* BACKGROUND LAYERS */}
       <motion.div style={{ opacity: fluidOpacity }}>
@@ -46,9 +47,10 @@ export default function Home() {
       </motion.div>
       <ArtisticBackground shift={bgShift} blackout={blackout} />
       <Starfield opacity={blackout} />
+      <EarthHorizon />
       
       {/* Fixed UI Elements */}
-      <div className="fixed top-8 left-8 z-50 flex items-center gap-3 mix-blend-difference text-white font-mono text-xs tracking-widest">
+      <div className="fixed top-5 left-4 sm:top-8 sm:left-8 z-50 flex items-center gap-3 mix-blend-difference text-white font-mono text-xs tracking-widest">
         <Image 
           src="/logo.png" 
           alt="Logo" 
@@ -63,17 +65,17 @@ export default function Home() {
       {/* Navigation Buttons */}
       <motion.div 
         style={{ opacity: heroOpacity }}
-        className="fixed top-8 right-8 z-50 flex gap-4 md:gap-8 mix-blend-difference text-white font-mono text-xs tracking-widest"
+        className="fixed top-5 right-4 sm:top-8 sm:right-8 z-50 flex gap-3 sm:gap-4 md:gap-8 mix-blend-difference text-white font-mono text-xs tracking-widest"
       >
         <button 
           onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
-          className="hover:opacity-70 transition-opacity"
+          className="py-1.5 px-1 hover:opacity-70 transition-opacity"
         >
           PROJECTS
         </button>
         <button 
           onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-          className="hover:opacity-70 transition-opacity"
+          className="py-1.5 px-1 hover:opacity-70 transition-opacity"
         >
           CONTACT
         </button>
@@ -82,7 +84,7 @@ export default function Home() {
       {/* HERO SECTION */}
       <motion.section 
         style={{ scale: heroScale, opacity: heroOpacity }}
-        className="fixed top-0 left-0 w-full h-screen flex flex-col items-center justify-center z-10 pointer-events-none"
+        className="fixed top-0 left-0 w-full h-[100svh] flex flex-col items-center justify-center z-10 pointer-events-none px-4"
       >
         <h1 className="text-[18vw] font-black leading-none tracking-tighter text-white mix-blend-overlay">
           ASHFAQ
@@ -92,30 +94,30 @@ export default function Home() {
           Artist • Developer • Creator
         </div>
 
-        <div className="absolute bottom-12 flex flex-col md:flex-row justify-between items-center w-[90vw] gap-2 md:gap-0 mix-blend-difference text-white font-mono text-[10px] md:text-sm uppercase opacity-70">
+        <div className="absolute bottom-8 sm:bottom-12 pb-[env(safe-area-inset-bottom)] flex flex-col md:flex-row justify-between items-center w-[90vw] gap-1.5 md:gap-0 mix-blend-difference text-white font-mono text-[10px] md:text-sm uppercase opacity-70">
           <span>Based in India</span>
           <span>Scroll to Explore</span>
         </div>
       </motion.section>
 
       {/* SCROLLABLE CONTENT */}
-      <div className="relative z-20 w-full pt-[100vh]">
+      <div className="relative z-20 w-full pt-[100svh]">
         
         {/* PHILOSOPHY */}
-        <section className="min-h-[100vh] flex items-center justify-center px-6 md:px-24">
+        <section className="min-h-[85svh] md:min-h-[100vh] flex items-center justify-center px-4 sm:px-6 md:px-24">
           <motion.div 
             initial={{ opacity: 0, y: 100 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
-            className="max-w-5xl bg-white/5 backdrop-blur-2xl border border-white/10 p-12 md:p-24 rounded-[4rem] relative overflow-hidden group"
+            className="max-w-5xl bg-white/5 backdrop-blur-2xl border border-white/10 p-7 sm:p-12 md:p-24 rounded-[2rem] sm:rounded-[3rem] md:rounded-[4rem] relative overflow-hidden group"
           >
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
-            <h2 className="text-4xl md:text-7xl font-bold leading-tight text-white mix-blend-difference relative z-10">
+            <h2 className="text-2xl sm:text-4xl md:text-7xl font-bold leading-tight text-white mix-blend-difference relative z-10">
               "I don't just write code. I sculpt <span className="italic text-white/50">digital experiences</span> that live at the intersection of logic and pure imagination."
             </h2>
-            <div className="mt-12 flex items-center gap-6 opacity-40 group-hover:opacity-100 transition-opacity duration-700">
+            <div className="mt-8 sm:mt-12 flex items-center gap-4 sm:gap-6 opacity-40 group-hover:opacity-100 transition-opacity duration-700">
               <div className="h-[1px] w-12 bg-white"></div>
-              <span className="font-mono text-sm tracking-[0.3em] uppercase text-white">The Vision</span>
+              <span className="font-mono text-xs sm:text-sm tracking-[0.3em] uppercase text-white">The Vision</span>
             </div>
             {/* Background Glow */}
             <div className="absolute -bottom-48 -right-48 w-96 h-96 bg-blue-500/10 blur-[120px] rounded-full"></div>

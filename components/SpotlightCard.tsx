@@ -17,7 +17,7 @@ export default function SpotlightCard({
   const [opacity, setOpacity] = useState(0);
 
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
-    if (!divRef.current) return;
+    if (!divRef.current || window.matchMedia('(pointer: coarse)').matches) return;
     const rect = divRef.current.getBoundingClientRect();
     setPosition({ x: e.clientX - rect.left, y: e.clientY - rect.top });
   };
@@ -46,7 +46,7 @@ export default function SpotlightCard({
       onBlur={handleBlur}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className={`relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-8 transition-all duration-500 hover:border-white/20 hover:bg-white/[0.07] ${className}`}
+      className={`relative overflow-hidden rounded-2xl sm:rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-5 sm:p-6 md:p-8 transition-all duration-500 hover:border-white/20 hover:bg-white/[0.07] ${className}`}
     >
       <div
         className="pointer-events-none absolute -inset-px opacity-0 transition duration-500"

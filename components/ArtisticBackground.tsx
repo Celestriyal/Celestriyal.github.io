@@ -96,7 +96,7 @@ void main() {
     color = mix(color, cD, clamp(length(r.x),0.0,1.0));
 
     // Add grain
-    float grain = random(vUv * uTime) * 0.1;
+    float grain = random(vUv * max(uTime, 0.1)) * 0.1;
     color += grain;
 
     // Apply blackout (fade to black)
@@ -109,24 +109,29 @@ void main() {
 export default function ArtisticBackground({ shift = 0, blackout = 0 }: { shift?: number, blackout?: number }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const materialRef = useRef<THREE.ShaderMaterial | null>(null);
+  const blackoutRef = useRef<number>(blackout);
+  const syncLoopRef = useRef<(() => void) | null>(null);
 
   useEffect(() => {
-    if (!containerRef.current) return;
+    const container = containerRef.current;
+    if (!container) return;
+
+    const getPixelRatio = () =>
+      window.innerWidth < 768 ? 1 : Math.min(window.devicePixelRatio || 1, 1.5);
 
     const scene = new THREE.Scene();
     const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
-    const renderer = new THREE.WebGLRenderer({ alpha: true });
-    
-    const container = containerRef.current;
+    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: false });
+    renderer.setPixelRatio(getPixelRatio());
     renderer.setSize(container.clientWidth, container.clientHeight);
     container.appendChild(renderer.domElement);
 
     const geometry = new THREE.PlaneGeometry(2, 2);
     const uniforms = {
       uTime: { value: 0.0 },
-      uShift: { value: 0.0 },
-      uBlackout: { value: 0.0 },
-      uResolution: { value: new THREE.Vector2() }
+      uShift: { value: shift },
+      uBlackout: { value: blackout },
+      uResolution: { value: new THREE.Vector2(renderer.domElement.width, renderer.domElement.height) }
     };
 
     const material = new THREE.ShaderMaterial({
@@ -139,26 +144,80 @@ export default function ArtisticBackground({ shift = 0, blackout = 0 }: { shift?
     const mesh = new THREE.Mesh(geometry, material);
     scene.add(mesh);
 
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let rafId = 0;
+    let isRunning = false;
+    let disposed = false;
+
+    const animate = (time: number) => {
+      if (disposed) return;
+
+      if (blackoutRef.current >= 0.99) {
+        isRunning = false;
+        renderer.domElement.style.visibility = 'hidden';
+        return;
+      }
+
+      renderer.domElement.style.visibility = 'visible';
+      uniforms.uTime.value = time * 0.0005;
+      renderer.render(scene, camera);
+
+      if (!prefersReducedMotion) {
+        rafId = requestAnimationFrame(animate);
+      } else {
+        isRunning = false;
+      }
+    };
+
+    const ensureLoop = () => {
+      if (disposed) return;
+
+      if (blackoutRef.current >= 0.99) {
+        renderer.domElement.style.visibility = 'hidden';
+        if (isRunning) {
+          cancelAnimationFrame(rafId);
+          isRunning = false;
+        }
+        return;
+      }
+
+      renderer.domElement.style.visibility = 'visible';
+      if (prefersReducedMotion) {
+        renderer.render(scene, camera);
+        return;
+      }
+
+      if (!isRunning) {
+        isRunning = true;
+        rafId = requestAnimationFrame(animate);
+      }
+    };
+
+    syncLoopRef.current = ensureLoop;
+
     const onWindowResize = () => {
+      if (disposed) return;
+      renderer.setPixelRatio(getPixelRatio());
       renderer.setSize(container.clientWidth, container.clientHeight);
       uniforms.uResolution.value.x = renderer.domElement.width;
       uniforms.uResolution.value.y = renderer.domElement.height;
+      if (prefersReducedMotion && blackoutRef.current < 0.99) {
+        renderer.render(scene, camera);
+      }
     };
 
     window.addEventListener('resize', onWindowResize);
-    onWindowResize(); // Initial set
-
-    const animate = (time: number) => {
-      uniforms.uTime.value = time * 0.0005;
-      renderer.render(scene, camera);
-      requestAnimationFrame(animate);
-    };
-
-    animate(0);
+    ensureLoop();
 
     return () => {
+      disposed = true;
+      syncLoopRef.current = null;
+      materialRef.current = null;
+      cancelAnimationFrame(rafId);
       window.removeEventListener('resize', onWindowResize);
-      container.removeChild(renderer.domElement);
+      if (container.contains(renderer.domElement)) {
+        container.removeChild(renderer.domElement);
+      }
       renderer.dispose();
       geometry.dispose();
       material.dispose();
@@ -167,11 +226,13 @@ export default function ArtisticBackground({ shift = 0, blackout = 0 }: { shift?
 
   // Update uniforms when props change
   useEffect(() => {
+    blackoutRef.current = blackout;
     if (materialRef.current) {
       materialRef.current.uniforms.uShift.value = shift;
       materialRef.current.uniforms.uBlackout.value = blackout;
     }
+    syncLoopRef.current?.();
   }, [shift, blackout]);
 
-  return <div ref={containerRef} className="fixed inset-0 -z-50 w-full h-full" />;
+  return <div ref={containerRef} className="fixed inset-0 -z-50 w-full h-full pointer-events-none" />;
 }
